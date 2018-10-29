@@ -1,0 +1,50 @@
+<% include ../header %>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.js"></script>
+<div class="container">
+    <div class="row">
+        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+            <form action="account/signup" method="POST" role="form">
+                <legend>Đăng ký</legend>
+            
+                <div class="form-group">
+                    <label for="">Tên hiển thị</label>
+                    <input type="text" class="form-control" name="fullname">
+                </div>
+                <div class="form-group">
+                    <label for="">Email</label>
+                    <input type="text" class="form-control" name="email">
+                </div>
+                <div class="form-group">
+                    <label for="">Mật khẩu</label>
+                    <input type="text" class="form-control" name="password">
+                </div>
+                <div class="form-group">
+                    <label for="">Xác nhận mật khẩu</label>
+                    <input type="text" class="form-control">
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+        
+        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+            <form action="account/signin" method="POST" role="form">
+                <legend>Đăng nhập</legend>
+                <div class="form-group">
+                    <label for="">Email</label>
+                    <input type="text" class="form-control" name="email">
+                </div>
+                <div class="form-group">
+                    <label for="">Mật khẩu</label>
+                    <input type="password" class="form-control" name="password">
+                </div>
+                <button type="button" class="btn btn-primary" onclick="signin()">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    let socket = io();
+    let signin = () => {
+        socket.emit('Signin', {email: document.forms[2][0].value, passwd: document.forms[2][1].value});
+    }
+</script>
