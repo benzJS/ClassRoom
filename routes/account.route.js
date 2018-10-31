@@ -7,9 +7,9 @@ router.get('/', (req, res) => {
 
 router.post('/signin', (req, res) => {
     User.find({email: req.body.email}, (err, data) => {
+        console.log(data);
         if (data == "" || data.mk != req.body.passwd){
-            var errs = ["Mật khẩu hoặc email không đúng, hãy thử lại"];
-            res.render('./account/account', {errs: errs})
+            res.render('account/account', {err: "Mật khẩu hoặc email không đúng, hãy thử lại"})
             return;
         }
     })
