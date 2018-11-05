@@ -7,6 +7,7 @@ var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
 var io = require('socket.io')(server);
 var User = require('./models/user');
+var homeRoute = require('./routes/home.route');
 var accountRoute = require('./routes/account.route')
 
 mongoose.connect('mongodb://localhost/applypj', {useNewUrlParser: true})
@@ -28,5 +29,5 @@ io.on('connection', (socket) => {
         })
     })
 })
-
+app.use('/', homeRoute);
 app.use('/account', accountRoute);
