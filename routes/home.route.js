@@ -90,7 +90,6 @@ function listEvents(auth) {
       events.map((event, i) => {
         const start = event.start.dateTime || event.start.date;
         // console.log(`${start} - ${event.summary}`);
-        console.log(event);
         response.render('index', {events: events});
       });
     } else {

@@ -1,5 +1,6 @@
 var express = require('express');
 var app = express();
+var path = require('path');
 var server = app.listen(3000, () => {
     console.log('Listening');
 })
@@ -15,6 +16,7 @@ app.set('views', './views')
 app.set('view engine', 'ejs');
 app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
+app.use(express.static(path.join(__dirname, 'public')));
 
 io.on('connection', (socket) => {
     console.log(`${socket.id} just connected`);
