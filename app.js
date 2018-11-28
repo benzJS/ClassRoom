@@ -11,7 +11,7 @@ var User = require('./models/user');
 var homeRoute = require('./routes/home.route');
 var accountRoute = require('./routes/account.route')
 
-mongoose.connect('mongodb://localhost/applypj', {useNewUrlParser: true})
+// mongoose.connect('mongodb://localhost/applypj', {useNewUrlParser: true})
 app.set('views', './views')
 app.set('view engine', 'ejs');
 app.use(bodyParser.json()); // for parsing application/json

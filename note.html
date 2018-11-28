@@ -1,0 +1,8 @@
+<% events.forEach(e => { %>
+    {
+        title: '<%= e.summary %>',
+        start: new Date(getEvYear('<%= e.start.dateTime %>'), getEvMonth('<%= e.start.dateTime %>') - 1, getEvDate('<%= e.start.dateTime %>'), getEvHour('<%= events[0].start.dateTime %>'), getEvMinute('<%= events[0].start.dateTime %>')),
+        allDay: false,
+        className: 'important'
+    },
+<% }) %>
