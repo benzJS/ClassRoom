@@ -6,14 +6,15 @@ router.get('/', (req, res) => {
 })
 
 router.post('/signin', (req, res) => {
-    User.find({email: req.body.email}, (err, data) => {
-        console.log(data[0].mk, req.body.passwd);
-        if (data == "" || data[0].mk != req.body.passwd){
+    User.find({EMAIL: req.body.email}, (err, data) => {
+        console.log(data);
+        console.log(req.body.email);
+        if (data == "" || data[0].PASSWD != req.body.passwd){
             res.render('account/account', {err: "Mật khẩu hoặc email không đúng, hãy thử lại"})
             return;
         }
         else{
-            
+            res.render('index');
         }
     })
 })
