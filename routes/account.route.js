@@ -15,10 +15,15 @@ router.post('/signin', (req, res) => {
             if(cache.get('currentAccount')) cache.del('currentAccount');
             cache.put('currentAccount', data[0]);
             console.log(cache.get('currentAccount'));
-            res.render('index', {currentAccount: cache.get('currentAccount')});
+            // res.render('index', {currentAccount: cache.get('currentAccount')});
+            res.redirect('/');
         }
     })
 })
 
+router.get('/logout', (req, res) => {
+    cache.del('currentAccount');
+    res.redirect('/')
+})
 
 module.exports = router;

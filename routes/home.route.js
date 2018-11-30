@@ -1,10 +1,17 @@
 var router = require('express').Router();
 var cache = require('memory-cache');
+var Event = require('../models/event')
 
 router.get('', (req, res) => {
   if(cache.get('currentAccount'))
-    return res.render('index', {currentAccount: cache.get('currentAccount')});
-  res.render('index')
+  {
+    Event.find({}, (err, allEvents) => {
+      res.render('index', {currentAccount: cache.get('currentAccount'), events: allEvents});
+    })
+  }
+  else{
+    res.render('index')
+  }
 })
 router.get('/insertEv', (req, res) => {
   res.render('index');

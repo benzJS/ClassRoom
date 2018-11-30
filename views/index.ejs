@@ -14,13 +14,13 @@
         var y = date.getFullYear();
         // console.log(m);
         var getEvDate = event => {
-            return parseInt(event.split(/-|T|:/)[2]);
+            return parseInt(event.split('.')[0]);
         }
         var getEvMonth = event => {
-            return parseInt(event.split(/-|T|:/)[1]);
+            return parseInt(event.split('.')[1]);
         }
         var getEvYear = event => {
-            return parseInt(event.split(/-|T|:/)[0]);
+            return parseInt(event.split('.')[2]);
         }
         var getEvHour = event => {
             return parseInt(event.split(/-|T|:/)[3]);
@@ -132,12 +132,16 @@
                     start: new Date(y, m, 1),
                     className: 'success'
                 },
+                <% if(typeof events !== 'undefined'){ 
+                    events.forEach((e) => { 
+                %>
                 {
-                    title: 'Demo',
-                    start: new Date(2018, 11-1, 28, 10, 30),
+                    title: '<%= e.TEN_EV %>',
+                    start: new Date(getEvYear('<%= e.START %>'), getEvMonth('<%= e.START %>')-1, 30),
                     allDay: false,
                     className: 'success'
                 }
+                <% })} %>
                 ],			
             });
     });
