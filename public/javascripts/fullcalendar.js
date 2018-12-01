@@ -5924,7 +5924,6 @@ function SelectionManager() {
 		// 		}
 		// 	});
 		// }
-		$('#insertEvModal').click();
 	}
 
 

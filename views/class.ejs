@@ -1,5 +1,5 @@
 <% include header %>
-    <link href='/stylesheets/fullcalendar.css' rel='stylesheet' />
+<link href='/stylesheets/fullcalendar.css' rel='stylesheet' />
     <link href='/stylesheets/fullcalendar.print.css' rel='stylesheet' media='print' />
     <script src="/javascripts/jquery-1.10.2.js"></script>
     <script src='/javascripts/jquery-ui.custom.min.js'></script>
@@ -150,6 +150,11 @@
                         window.open(event.url, '_blank');
                         return false;
                     }
+                },
+                daySelectionMousedown: (ev) => { // not really a generic manager method, oh well
+                    <% if(FULLPERMISSION == true) {%>
+                        $('#insertEvModal').click();
+                    <% } %>
                 }
             });
     });
