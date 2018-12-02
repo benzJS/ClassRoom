@@ -3,7 +3,7 @@ var User = require('../models/user');
 var cache = require('memory-cache');
 
 router.get('/', (req, res) => {
-    res.render('./account/account');
+    cache.get('currentAccount') ? res.redirect('/') : res.render('./account/account');
 })
 
 router.post('/signin', (req, res) => {

@@ -5924,14 +5924,6 @@ function SelectionManager() {
 		// 		}
 		// 	});
 		// }
-		// console.log(ev.currentTarget);
-		// console.log(ev.currentTarget.getAttribute('data-date'));
-		var date = new Date();
-        var d = date.getDate();
-        var m = date.getMonth() + 1;
-		var y = date.getFullYear();
-		if(parseInt(ev.currentTarget.getAttribute('data-date').split('-')[0]) >= y && parseInt(ev.currentTarget.getAttribute('data-date').split('-')[1]) >= m && parseInt(ev.currentTarget.getAttribute('data-date').split('-')[2]) >= d)
-			$('#insertEvModal').click();
 	}
 
 
