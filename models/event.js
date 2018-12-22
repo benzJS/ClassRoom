@@ -1,11 +1,12 @@
 var mongoose = require('mongoose');
 var eventSchema = new mongoose.Schema({
-    BID_ID: String,
-    TEN_EV: String,
+    CLASS_ID: String,
+    ORGANIZER: String,
+    EV_NAME: String,
     START: String,
     END: String,
-    LINK_BAIVIET: String,
-    DIEMTICHLUY: Number
+    TOPIC_LINK: String,
+    EV_SCORE: Number
 });
 var Event = mongoose.model('Event', eventSchema, 'events');
 module.exports = Event;

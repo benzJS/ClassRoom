@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<style>
+
+</style>
+<body>
+    <p id="pagraph">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Esse fugit laudantium labore assumenda repellendus cumque necessitatibus expedita impedit, placeat veritatis iste velit ex repellat eveniet ad explicabo pariatur enim aliquam?</p>
+    <input type="text" id="txtbox">
+    <script>
+        var pagraph = document.getElementById('pagraph').innerText.split(' ');
+        var txtbox = document.getElementById('txtbox');
+        txtbox.addEventListener('keyup', () => {
+            if(txtbox.value === pagraph[0] + ' '){
+                pagraph.shift();
+                document.getElementById('pagraph').innerText = pagraph.join(' ');
+                txtbox.value = '';
+            }
+        })
+    </script>
+</body>
+</html>

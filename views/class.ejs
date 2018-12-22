@@ -1,7 +1,6 @@
 <% include header %>
 <link href='/stylesheets/fullcalendar.css' rel='stylesheet' />
     <link href='/stylesheets/fullcalendar.print.css' rel='stylesheet' media='print' />
-    <script src="/javascripts/jquery-1.10.2.js"></script>
     <script src='/javascripts/jquery-ui.custom.min.js'></script>
     <% if(FULLPERMISSION == 'true'){ %>
         <script src='/javascripts/fullcalendar.js'></script>
@@ -140,17 +139,15 @@
                     allDay: false,
                     className: 'success'
                 },
-                <% if(typeof events !== 'undefined'){ 
-                    events.forEach((e) => { 
-                %>
-                {
-                    title: '<%= e.TEN_EV %>',
-                    start: new Date(getEvYear('<%= e.START %>'), getEvMonth('<%= e.START %>')-1, getEvDate('<%= e.START %>')),
-                    // allDay: false,
-                    end: new Date(getEvYear('<%= e.END %>'), getEvMonth('<%= e.END %>')-1, getEvDate('<%= e.END %>')),
-                    className: 'success',
-                    url: '<%= e.LINK_BAIVIET %>'
-                }
+                <% if(locals.events) { locals.events.forEach((e, index) => { %>
+                    {
+                        title: '<%= e.EV_NAME %>',
+                        start: new Date(getEvYear('<%= e.START %>'), getEvMonth('<%= e.START %>')-1, getEvDate('<%= e.START %>')),
+                        end: new Date(getEvYear('<%= e.END %>'), getEvMonth('<%= e.END %>')-1, getEvDate('<%= e.END %>')),
+                        className: 'success',
+                        url: '<%= e.TOPIC_LINK %>'
+                    }
+                    <% if(index < events.length - 1) {%>,<% } %>
                 <% })} %>
                 ],
                 eventClick: function(event) {
@@ -285,8 +282,4 @@
             </form>
         </div>
     </body>
-    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script> -->
-    <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
-    <script>
-    </script>
 </html>

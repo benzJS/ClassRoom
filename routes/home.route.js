@@ -5,34 +5,11 @@ var LopHoc = require('../models/lophoc');
 var ThamGiaLop = require('../models/thamgialop');
 var mongoose = require('mongoose');
 
-// router.get('', (req, res) => {
-//   let tmp = 5;
-//   if(cache.get('currentAccount'))
-//   {
-//     console.log(cache.get('currentAccount')._id);
-//     ThamGiaLop.find({ID_USERS: cache.get('currentAccount')._id}, (err, data) => {
-//       console.log(data);
-//       data.forEach(document => {
-//         LopHoc.find({_id: document.ID_LOPHOC}, (err, classInfo) => {
-//           console.log(classInfo[0]);
-//           tmp = 6;
-//           // console.log(tmp);
-//         })
-//       })
-//       console.log(tmp);
-//       res.render('index', {classes: tmp});
-//     })
-//   }
-//   else{
-//     res.render('index');
-//   }
-// })
-
-router.get('', (req, res) => {
+router.get('/', (req, res) => {
   if(cache.get('currentAccount')){
     ThamGiaLop.find({ID_USERS: cache.get('currentAccount')._id}, (err, data) => {
       LopHoc.find({_id: data[0].ID_LOPHOC}, (err, classData) => {
-        res.render('index', {classes: classData, currentAccount: cache.get('currenAccount')});
+        res.render('index', {classes: classData, currentAccount: cache.get('currentAccount')});
       })
     })
   }
@@ -41,18 +18,9 @@ router.get('', (req, res) => {
   }
 })
 
-router.get('/c/:ID_LOPHOC', (req, res) => {
-  if(cache.get('currentAccount')){
-    ThamGiaLop.find({ID_USERS: cache.get('currentAccount')._id}, (err, data) => {
-      let currentClassIndex = data.findIndex((e) => { return e.ID_LOPHOC == req.params.ID_LOPHOC });
-      if( currentClassIndex != -1){
-        LopHoc.find({_id: req.params.ID_LOPHOC}, (err, currentClass) => {
-          res.render('class', {currentClass: currentClass[0], currentAccount: cache.get('currentAccount'), FULLPERMISSION: data[currentClassIndex].FULLPERMISSION});
-        })
-      }
-    })
-  }
-});
+router.get('/game', (req, res) => {
+  res.render('game');
+})
 
 module.exports = router;
 

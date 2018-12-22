@@ -3,13 +3,22 @@ var User = require('../models/user');
 var cache = require('memory-cache');
 
 router.get('/', (req, res) => {
-    cache.get('currentAccount') ? res.redirect('/') : res.render('./account/account');
+    if(cache.get('currentAccount')){
+        res.redirect('/');
+    }
+    else{
+        if(cache.get('signInFailed')){
+            return res.render('./account/account', {err: cache.get('signInFailed')})
+        }
+        return res.render('./account/account')
+    }
 })
 
 router.post('/signin', (req, res) => {
     User.find({EMAIL: req.body.email}, (err, data) => {
         if (data == "" || data[0].PASSWD != req.body.passwd){
-            res.render('account/account', {err: "Mật khẩu hoặc email không đúng, hãy thử lại"});
+            cache.put('signInFailed', 'Username or password incorrect');
+            res.redirect('/account');
         }
         else{
             if(cache.get('currentAccount')) cache.del('currentAccount');

@@ -1,7 +1,20 @@
 <% include header %>
-    <% if(locals.classes) {
-        locals.classes.forEach(currentClass => { %>
-        <li><a href="/c/<%= currentClass._id %>"><%= currentClass.TENLOP %></a></li>
-    <% })} %>
+        <div class="container">
+            <% if(locals.classes) {
+            locals.classes.forEach(currentClass => { %>
+                    <div class="jumbotron">
+                        <div class="container">
+                            <h1><%= currentClass.TENLOP %></h1>
+                            <p>Contents ...</p>
+                            <p>
+                                <a class="btn btn-primary btn-lg" href="c/<%= currentClass._id %>">Learn more</a>
+                            </p>
+                        </div>
+                    </div>
+            <% })} %>
+        </div>
+    <script>
+        
+    </script>
     </body>
 </html>
