@@ -18,18 +18,18 @@ app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 app.use(express.static(path.join(__dirname, 'public')));
 
-io.on('connection', (socket) => {
-    console.log(`${socket.id} just connected`);
-    socket.on('Signin', data => {
-        User.find({EMAIL: data.EMAIL}, (err, user) => {
-            if(user == "" || user.PASSWD != data.passwd){
-                socket.emit('SigninState', true);
-            }
-            else{
-                socket.emit('SigninState', false);
-            }
-        })
-    })
-})
+// io.on('connection', (socket) => {
+//     console.log(`${socket.id} just connected`);
+//     socket.on('Signin', data => {
+//         User.find({EMAIL: data.EMAIL}, (err, user) => {
+//             if(user == "" || user.PASSWD != data.passwd){
+//                 socket.emit('SigninState', true);
+//             }
+//             else{
+//                 socket.emit('SigninState', false);
+//             }
+//         })
+//     })
+// })
 app.use('/', homeRoute);
 app.use('/account', accountRoute);

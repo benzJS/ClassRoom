@@ -1,20 +1,18 @@
 <% include header %>
-<link href='/stylesheets/fullcalendar.css' rel='stylesheet' />
+    <link href='/stylesheets/fullcalendar.css' rel='stylesheet' />
     <link href='/stylesheets/fullcalendar.print.css' rel='stylesheet' media='print' />
     <script src="/javascripts/jquery-1.10.2.js"></script>
     <script src='/javascripts/jquery-ui.custom.min.js'></script>
-    <% if(FULLPERMISSION == 'true'){ %>
-        <script src='/javascripts/fullcalendar.js'></script>
-    <% } else { %>
-        <script src='/javascripts/minicalendar.js'></script>
-    <% } %>
+
+    <script src='/javascripts/fullcalendar.js'></script>
     <script>
-    console.log(<%= FULLPERMISSION %>)
+
     $(document).ready(function() {
         var date = new Date();
         var d = date.getDate();
         var m = date.getMonth();
         var y = date.getFullYear();
+        // console.log(m);
         var getEvDate = event => {
             return parseInt(event.split('.')[0]);
         }
@@ -134,12 +132,6 @@
                     start: new Date(y, m, 1),
                     className: 'success'
                 },
-                {
-                    title: 'test',
-                    start: new Date(y, m, 1),
-                    allDay: false,
-                    className: 'success'
-                },
                 <% if(typeof events !== 'undefined'){ 
                     events.forEach((e) => { 
                 %>
@@ -160,7 +152,8 @@
                     }
                 }
             });
-        });
+    });
+
     </script>
     <style>
 
@@ -236,57 +229,28 @@
             </div>
             
             <a id="insertEvModal" data-toggle="modal" href='#modal-id'></a>
-            <form action="" method="POST" role="form">
-                <div class="modal fade" id="modal-id">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                <h4 class="modal-title">Insert Event</h4>
-                            </div>
-                            <div class="modal-body">
-                                    <div class="form-group">
-                                        <label for="TEN_EV">Event Name</label>
-                                        <input type="text" name="" id="TEN_EV" class="form-control" value="" required="required" pattern="" title="">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="TEN_EV">Event Name</label>
-                                        <input type="text" name="" id="DIEMTICHLUY" class="form-control" value="" required="required" pattern="" title="">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="TEN_EV">Event Name</label>
-                                        <div class="container">
-                                            <div class="row">
-                                                <div class='col-sm-6'>
-                                                    <div class="form-group">
-                                                        <div class='input-group date' id='datetimepicker2'>
-                                                            <input type='text' class="form-control" />
-                                                            <span class="input-group-addon">
-                                                                <span class="glyphicon glyphicon-calendar"></span>
-                                                            </span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="TEN_EV">Event Name</label>
-                                        <input type="text" name="" id="END" class="form-control" value="" required="required" pattern="" title="">
-                                    </div>                                    
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                    <button type="submit" class="btn btn-primary">Save changes</button>
-                                </div>
-                            </div>
+            <div class="modal fade" id="modal-id">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title">Modal title</h4>
                         </div>
-                </div>      
-            </form>
+                        <div class="modal-body">
+                            
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary">Save changes</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
         </div>
     </body>
     <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script> -->
-    <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script>
     </script>
 </html>

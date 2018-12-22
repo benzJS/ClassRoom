@@ -14,8 +14,6 @@ router.post('/signin', (req, res) => {
         else{
             if(cache.get('currentAccount')) cache.del('currentAccount');
             cache.put('currentAccount', data[0]);
-            // console.log(data[0]._id);
-            // res.render('index', {currentAccount: cache.get('currentAccount')});
             res.redirect('/');
         }
     })
