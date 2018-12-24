@@ -10,8 +10,8 @@ router.get('/:ID_LOPHOC', (req, res) => {
             let currentClassIndex = data.findIndex((e) => { return e.ID_LOPHOC == req.params.ID_LOPHOC });
             if(currentClassIndex != -1){
                 LopHoc.find({_id: req.params.ID_LOPHOC}, (err, currentClass) => {
+                    cache.put('currentClass', currentClass[0]._id);
                     Event.find({CLASS_ID: currentClass[0]._id}, (err, classEvents) => {
-                        console.log(classEvents);
                         res.render('class', {currentClass: currentClass[0], currentAccount: cache.get('currentAccount'), FULLPERMISSION: data[currentClassIndex].FULLPERMISSION, events: classEvents});
                     })
                 })

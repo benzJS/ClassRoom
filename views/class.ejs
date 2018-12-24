@@ -1,5 +1,5 @@
 <% include header %>
-<link href='/stylesheets/fullcalendar.css' rel='stylesheet' />
+    <link href='/stylesheets/fullcalendar.css' rel='stylesheet' />
     <link href='/stylesheets/fullcalendar.print.css' rel='stylesheet' media='print' />
     <script src='/javascripts/jquery-ui.custom.min.js'></script>
     <% if(FULLPERMISSION == 'true'){ %>
@@ -7,6 +7,7 @@
     <% } else { %>
         <script src='/javascripts/minicalendar.js'></script>
     <% } %>
+    <script src="/javascripts/socket.io.js"></script>
     <script>
     console.log(<%= FULLPERMISSION %>)
     $(document).ready(function() {
@@ -138,8 +139,9 @@
                     start: new Date(y, m, 1),
                     allDay: false,
                     className: 'success'
-                },
+                }
                 <% if(locals.events) { locals.events.forEach((e, index) => { %>
+                    <% if(index < events.length) {%>,<% } %>
                     {
                         title: '<%= e.EV_NAME %>',
                         start: new Date(getEvYear('<%= e.START %>'), getEvMonth('<%= e.START %>')-1, getEvDate('<%= e.START %>')),
@@ -147,7 +149,6 @@
                         className: 'success',
                         url: '<%= e.TOPIC_LINK %>'
                     }
-                    <% if(index < events.length - 1) {%>,<% } %>
                 <% })} %>
                 ],
                 eventClick: function(event) {
@@ -220,9 +221,9 @@
         <div class="container">
             <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
                 <div class="list-group">
-                    <a href="#" class="list-group-item">Thời khóa biểu</a>
-                    <a href="#" class="list-group-item active">Lịch</a>
-                    <a href="#" class="list-group-item">Điểm số</a>
+                    <a href="#" class="list-group-item" onclick="activeItem(this)">Thời khóa biểu</a>
+                    <a href="#" class="list-group-item active" onclick="activeItem(this)">Lịch</a>
+                    <a href="#" class="list-group-item" onclick="activeItem(this)">Điểm số</a>
                 </div>
             </div>
             
@@ -233,7 +234,7 @@
             </div>
             
             <a id="insertEvModal" data-toggle="modal" href='#modal-id'></a>
-            <form action="" method="POST" role="form">
+            <form action="" method="POST" role="form" onsubmit="return insertEvent(this)">
                 <div class="modal fade" id="modal-id">
                     <div class="modal-dialog">
                         <div class="modal-content">
@@ -243,33 +244,29 @@
                             </div>
                             <div class="modal-body">
                                     <div class="form-group">
-                                        <label for="TEN_EV">Event Name</label>
-                                        <input type="text" name="" id="TEN_EV" class="form-control" value="" required="required" pattern="" title="">
+                                        <label for="EV_NAME">Event Name</label>
+                                        <input type="text" name="" id="EV_NAME" class="form-control" value="New Year">
                                     </div>
                                     <div class="form-group">
-                                        <label for="TEN_EV">Event Name</label>
-                                        <input type="text" name="" id="DIEMTICHLUY" class="form-control" value="" required="required" pattern="" title="">
+                                        <label for="START">START</label>
+                                        <input type="text" name="" id="START" class="form-control" value="">
                                     </div>
                                     <div class="form-group">
-                                        <label for="TEN_EV">Event Name</label>
-                                        <div class="container">
-                                            <div class="row">
-                                                <div class='col-sm-6'>
-                                                    <div class="form-group">
-                                                        <div class='input-group date' id='datetimepicker2'>
-                                                            <input type='text' class="form-control" />
-                                                            <span class="input-group-addon">
-                                                                <span class="glyphicon glyphicon-calendar"></span>
-                                                            </span>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                        <label for="END">END</label>
+                                        <div class="input-group date" data-provide="datepicker">
+                                            <input type="text" id="END" class="form-control">
+                                            <div class="input-group-addon">
+                                                <span class="glyphicon glyphicon-th"></span>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="TEN_EV">Event Name</label>
-                                        <input type="text" name="" id="END" class="form-control" value="" required="required" pattern="" title="">
+                                        <label for="TOPIC_LINK">Topic Link</label>
+                                        <input type="text" name="" id="TOPIC_LINK" class="form-control" value="http://fb.com">
+                                    </div>                                    
+                                    <div class="form-group">
+                                        <label for="EV_SCORE">Score</label>
+                                        <input type="text" name="" id="EV_SCORE" class="form-control" value="2019">
                                     </div>                                    
                                 </div>
                                 <div class="modal-footer">
@@ -281,5 +278,26 @@
                 </div>      
             </form>
         </div>
+        <script>
+            function activeItem(item){
+                for(e of document.getElementsByClassName('list-group-item')){
+                    e.className = 'list-group-item';
+                }
+                item.className = 'list-group-item active';
+            }
+            var socket = io('http://localhost:3000');
+            function insertEvent(eventData){
+                var eventObject = {};
+                for(var input of eventData){
+                    if(input.type !== 'button' && input.type !== 'submit'){
+                        // console.log(input);
+                        eventObject[input.id] = input.value
+                    }
+                }
+                socket.emit('insert-event', eventObject);
+                // console.log(eventObject);
+                return false;
+            }
+        </script>
     </body>
 </html>

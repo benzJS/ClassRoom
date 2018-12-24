@@ -5931,7 +5931,11 @@ function SelectionManager() {
         var m = date.getMonth() + 1;
 		var y = date.getFullYear();
 		if(parseInt(ev.currentTarget.getAttribute('data-date').split('-')[0]) >= y && parseInt(ev.currentTarget.getAttribute('data-date').split('-')[1]) >= m && parseInt(ev.currentTarget.getAttribute('data-date').split('-')[2]) >= d)
+		{
 			$('#insertEvModal').click();
+			$('#START').val(ev.currentTarget.getAttribute('data-date')); 	
+			$('#END').val(ev.currentTarget.getAttribute('data-date')); 	
+		}	
 	}
 
 
